@@ -1,75 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurelia</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Flight Timeline</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<script src="https://d3js.org/d3.v7.min.js"></script>
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: monospace;
+    overflow: hidden;
+}
 
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.1);
-            text-align: center;
-            max-width: 500px;
-        }
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    opacity: 1;
+    transition: opacity 2s;
+}
 
-        h1 {
-            margin-bottom: 15px;
-            font-size: 2.5rem;
-        }
+#year {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    font-size: 48px;
+    opacity: 0;
+    transition: opacity 1s;
+}
 
-        p {
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
+#stats {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    font-size: 14px;
+    opacity: 0;
+    line-height: 1.8;
+}
 
-        a.button {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #0066ff;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: 0.2s;
-        }
-
-        a.button:hover {
-            background: #0052cc;
-        }
-    </style>
+svg {
+    width: 100vw;
+    height: 100vh;
+}
+</style>
 </head>
+
 <body>
 
-<div class="card">
-    <h1>Hello, Dirkiboy!</h1>
+<div id="loading">Loading boarding passes...</div>
+<div id="year">2015</div>
 
-    <p>
-        This website is hosted on <strong>A2 Hosting</strong>.
-        It is a static HTML page that can be updated directly from GitHub.
-    </p>
-
-    <a class="button" href="https://github.com/" target="_blank">
-        Visit GitHub
-    </a>
+<div id="stats">
+Flights: 0<br>
+Airports: 0<br>
+Countries: 0<br>
+Distance: 0 km
 </div>
+
+<svg></svg>
+
+<script>
+
+// ---------------------------
+// SETUP
+// ---------------------------
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+const svg = d3.select("svg");
+
+const projection = d3.geoNaturalEarth1()
+    .scale(250)
+    .translate([width/2, height/2]);
+
+const path = d3.geoPath().projection(projection);
+
+// fake minimal world (replace with topojson later)
+const countries = {type:"Sphere"};
+
+// sample flight data
+const flights = [
+  {from: "FRA", to: "LHR", year: 2015},
+  {from: "FRA", to: "JFK", year: 2016},
+  {from: "FRA", to: "SIN", year: 2017},
+  {from: "SIN", to: "NRT", year: 2018},
+];
+
+const airports = {
+  FRA: [8.5622, 50.0379],
+  LHR: [-0.4543, 51.4700],
+  JFK: [-73.7781, 40.6413],
+  SIN: [103.9915, 1.3644],
+  NRT: [140.3929, 35.7767]
+};
+
+// ---------------------------
+// BACKGROUND FADE IN
+// ---------------------------
+setTimeout(() => {
+    d3.select("#loading")
+        .transition()
+        .duration(2000)
+        .style("opacity", 0);
+}, 2000);
+
+// ---------------------------
+// WORLD APPEARS
+// ---------------------------
+setTimeout(() => {
+
+    d3.select("#year").style("opacity", 1);
+
+    svg.append("path")
+        .attr("d", path(countries))
+        .attr("fill", "#111")
+        .attr("stroke", "#444");
+
+}, 4000);
+
+// ---------------------------
+// FLIGHT ANIMATION
+// ---------------------------
+let i = 0;
+
+function drawFlight(f) {
+
+    const from = projection(airports[f.from]);
+    const to = projection(airports[f.to]);
+
+    // line
+    svg.append("line")
+        .attr("x1", from[0])
+        .attr("y1", from[1])
+        .attr("x2", from[0])
+        .attr("y2", from[1])
+        .attr("stroke", "#00ffcc")
+        .attr("stroke-width", 1)
+        .transition()
+        .duration(1500)
+        .attr("x2", to[0])
+        .attr("y2", to[1]);
+
+    // update UI
+    d3.select("#year").text(f.year);
+
+    d3.select("#stats")
+        .style("opacity", 1)
+        .html(`
+            Flights: ${i+1}<br>
+            Airports: ${Object.keys(airports).length}<br>
+            Countries: ~${i+2}<br>
+            Distance: ${i*6000} km
+        `);
+
+}
+
+// loop flights
+function loop() {
+    if (i >= flights.length) return;
+
+    drawFlight(flights[i]);
+    i++;
+
+    setTimeout(loop, 2500);
+}
+
+// start after map appears
+setTimeout(() => {
+    d3.select("#stats").style("opacity", 1);
+    loop();
+}, 5000);
+
+</script>
 
 </body>
 </html>

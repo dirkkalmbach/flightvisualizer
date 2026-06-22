@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Flight Map V2</title>
+<title>Boarding Pass Flight Map</title>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
@@ -17,6 +17,21 @@ body {
     color: white;
 }
 
+/* ---------------- INTRO SCREEN ---------------- */
+#intro {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 2s ease;
+}
+
+/* ---------------- MAP ---------------- */
 svg {
     width: 100vw;
     height: 100vh;
@@ -32,14 +47,14 @@ svg {
     fill: none;
     stroke: #00ffd5;
     stroke-width: 1.2;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 .airport {
-    fill: red;
-    opacity: 0.8;
+    fill: #ff3b3b;
 }
 
+/* ---------------- UI ---------------- */
 #year {
     position: absolute;
     bottom: 40px;
@@ -53,42 +68,26 @@ svg {
     top: 40px;
     font-size: 14px;
     line-height: 1.6;
+    opacity: 0;
+    transition: opacity 1s;
 }
 </style>
 </head>
 
 <body>
 
-<div id="year">2015</div>
+<!-- INTRO -->
+<div id="intro">Loading boarding passes...</div>
 
-<div id="stats">
-Flights: 0<br>
-Airports: 0<br>
-Countries: 0<br>
-Distance: 0 km
-</div>
+<!-- UI -->
+<div id="year">2015</div>
+<div id="stats"></div>
 
 <svg></svg>
 
 <script>
 
-// ----------------------------
-// SIZE & PROJECTION
-// ----------------------------
-const width = window.innerWidth;
-const height = window.innerHeight;
-
-const svg = d3.select("svg");
-
-const projection = d3.geoNaturalEarth1()
-    .scale(260)
-    .translate([width/2, height/2]);
-
-const path = d3.geoPath().projection(projection);
-
-// ----------------------------
-// DATA (replace with CSV later)
-// ----------------------------
+// ---------------------- DATA ----------------------
 const airports = {
     FRA: [8.5622, 50.0379],
     LHR: [-0.4543, 51.4700],
@@ -107,9 +106,19 @@ const flights = [
     {from:"FRA", to:"DXB", year:2019}
 ];
 
-// ----------------------------
-// WORLD MAP
-// ----------------------------
+// ---------------------- SETUP ----------------------
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+const svg = d3.select("svg");
+
+const projection = d3.geoNaturalEarth1()
+    .scale(260)
+    .translate([width/2, height/2]);
+
+const path = d3.geoPath().projection(projection);
+
+// ---------------------- LOAD WORLD ----------------------
 d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
 .then(world => {
 
@@ -123,70 +132,64 @@ d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
         .attr("class", "country")
         .attr("d", path);
 
-    startAnimation();
+    drawAirports();
+
+    startIntro();
 });
 
-// ----------------------------
-// DRAW AIRPORT MARKERS
-// ----------------------------
+// ---------------------- AIRPORTS ----------------------
 function drawAirports() {
-    svg.selectAll("circle")
+    svg.selectAll(".airport")
         .data(Object.entries(airports))
         .enter()
         .append("circle")
         .attr("class", "airport")
-        .attr("r", 2)
+        .attr("r", 2.5)
         .attr("cx", d => projection(d[1])[0])
         .attr("cy", d => projection(d[1])[1]);
 }
 
-// ----------------------------
-// FLIGHT ARC FUNCTION
-// ----------------------------
-function flightArc(from, to) {
-
-    const coords = [airports[from], airports[to]];
-
+// ---------------------- GREAT CIRCLE ----------------------
+function route(from, to) {
     return {
         type: "LineString",
-        coordinates: coords
+        coordinates: [
+            airports[from],
+            airports[to]
+        ]
     };
 }
 
-// ----------------------------
-// ANIMATE AIRPLANE
-// ----------------------------
-function animatePlane(path) {
+// ---------------------- PLANE ANIMATION ----------------------
+function animatePlane(pathNode) {
 
     const plane = svg.append("circle")
         .attr("r", 3)
         .attr("fill", "white");
 
-    const totalLength = path.getTotalLength();
+    const len = pathNode.getTotalLength();
 
     plane.transition()
         .duration(2000)
-        .attrTween("transform", function() {
-            return function(t) {
-                const p = path.getPointAtLength(t * totalLength);
+        .ease(d3.easeLinear)
+        .attrTween("transform", () => {
+            return (t) => {
+                const p = pathNode.getPointAtLength(t * len);
                 return `translate(${p.x},${p.y})`;
             };
         })
         .on("end", () => plane.remove());
 }
 
-// ----------------------------
-// DRAW FLIGHT
-// ----------------------------
-function drawFlight(f) {
+// ---------------------- FLIGHT DRAW ----------------------
+function drawFlight(f, i) {
 
-    const geoLine = flightArc(f.from, f.to);
+    const geo = route(f.from, f.to);
+    const d = path(geo);
 
-    const linePath = d3.geoPath().projection(projection)(geoLine);
-
-    const pathElement = svg.append("path")
+    const p = svg.append("path")
         .attr("class", "route")
-        .attr("d", linePath)
+        .attr("d", d)
         .attr("stroke-dasharray", function() {
             return this.getTotalLength();
         })
@@ -194,35 +197,50 @@ function drawFlight(f) {
             return this.getTotalLength();
         });
 
-    pathElement.transition()
+    p.transition()
         .duration(1500)
         .attr("stroke-dashoffset", 0);
 
-    animatePlane(pathElement.node());
+    animatePlane(p.node());
 
     d3.select("#year").text(f.year);
 
-    d3.select("#stats").html(`
-        Flights: ${flights.indexOf(f)+1}<br>
-        Airports: ${Object.keys(airports).length}<br>
-        Countries: ~${new Set(flights.map(d => d.from)).size}<br>
-        Distance: ${(flights.indexOf(f)+1)*6200} km
-    `);
+    d3.select("#stats")
+        .style("opacity", 1)
+        .html(`
+            Flights: ${i+1}<br>
+            Airports: ${Object.keys(airports).length}<br>
+            Countries: ~${new Set(flights.slice(0,i+1).map(d => d.from)).size}<br>
+            Distance: ${(i+1)*6100} km
+        `);
 }
 
-// ----------------------------
-// ANIMATION LOOP
-// ----------------------------
-function startAnimation() {
+// ---------------------- INTRO ----------------------
+function startIntro() {
 
-    drawAirports();
+    setTimeout(() => {
+
+        d3.select("#intro")
+            .transition()
+            .duration(2000)
+            .style("opacity", 0)
+            .remove();
+
+        startAnimation();
+
+    }, 2000);
+}
+
+// ---------------------- MAIN LOOP ----------------------
+function startAnimation() {
 
     let i = 0;
 
     function loop() {
+
         if (i >= flights.length) return;
 
-        drawFlight(flights[i]);
+        drawFlight(flights[i], i);
         i++;
 
         setTimeout(loop, 2200);

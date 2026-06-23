@@ -1,7 +1,7 @@
 Date,Year,Flight,Airline,From,FromCode,To,ToCode,Seat,Gate,Class,BoardingTime,Distance_km,CO2_kg
-18 Jan,2016,9C8550,Spring Airlines,Singapore,SIN,Shanghai,SHA,30A,C11,Economy,2335,3829,440
+18 Jan,2016,9C8550,Spring Airlines,Singapore,SIN,TShanghai Pudong,PVG,30A,C11,Economy,2335,3829,440
 17 Feb,2016,MU544,China Eastern,Singapore,SIN,Shanghai Pudong,PVG,39F,,Economy,,3829,440
-25 Feb,2016,MU5104,China Eastern,Singapore,SIN,Shanghai Hongqiao,SHA,37F,20,Economy,0830,3829,440
+25 Feb,2016,MU5104,China Eastern,Singapore,SIN,Shanghai Pudong,PVG,37F,20,Economy,0830,3829,440
 28 Apr,2016,MU545,China Eastern,Shanghai Pudong,PVG,Singapore,SIN,68L,19,Economy,1535,3829,440
 08 May,2016,CA0196,China Airlines,Taipei,TPE,Shanghai Pudong,PVG,34L,D229,Economy,1100,682,78
 08 May,2016,CA0195,Air China,Taipei,TPE,Shanghai Pudong,PVG,34L,D229,Economy,1100,682,78
@@ -13,7 +13,7 @@ Date,Year,Flight,Airline,From,FromCode,To,ToCode,Seat,Gate,Class,BoardingTime,Di
 21 Jun,2016,TG673,Thai Airways,Osaka,KIX,Bangkok,BKK,31A,5,Economy,2350,4730,544
 23 Jun,2016,TG431,Thai Airways,Bangkok,BKK,Denpasar Bali,DPS,31F,E1A,Economy,0855,2260,260
 23 Jun,2016,TG431,Thai Airways,Bangkok,BKK,Denpasar Bali,DPS,31A,E1A,Economy,0855,2260,260
-30 Jun,2016,MU5160,China Eastern,Singapore,SIN,Shanghai Hongqiao,SHA,42A,21,Economy,2110,3829,440
+30 Jun,2016,MU5160,China Eastern,Singapore,SIN,Shanghai Pudong,PVG,42A,21,Economy,2110,3829,440
 02 Jul,2016,CX635,Cathay Pacific,Hong Kong,HKG,Singapore,SIN,48C,,Economy,1600,2583,297
 02 Jul,2016,CX367,Cathay Pacific,Hong Kong,HKG,Singapore,SIN,,,Economy,,2583,297
 30 Jul,2016,HX707,Hong Kong Airlines,Hong Kong,HKG,Denpasar Bali,DPS,15C,,Business,1130,3290,944
@@ -23,23 +23,23 @@ Date,Year,Flight,Airline,From,FromCode,To,ToCode,Seat,Gate,Class,BoardingTime,Di
 21 Aug,2016,CX739,Dragonair,Hong Kong,HKG,Singapore,SIN,54K,,Economy,1035,2583,297
 23 Aug,2016,3K683,Jetstar,Singapore,SIN,Kuala Lumpur,KUL,20A,C15,Economy,0640,315,36
 26 Aug,2016,MH0619,Malaysia Airlines,Kuala Lumpur,KUL,Singapore,SIN,23E,,Economy,1425,315,36
-24 Sep,2016,9C8549,Spring Airlines,Shanghai,SHA,Singapore,SIN,8F,D37,Economy,,3829,440
+24 Sep,2016,9C8549,Spring Airlines,TShanghai Pudong,PVG,Singapore,SIN,8F,D37,Economy,,3829,440
 26 Sep,2016,AK718,AirAsia,Singapore,SIN,Kuala Lumpur,KUL,10B,,Economy,2045,315,36
 06 Sep,2016,CX736,Cathay Pacific,Hong Kong,HKG,Singapore,SIN,60H,D44,Economy,0915,2583,297
 06 Sep,2016,KA890,Dragonair,Hong Kong,HKG,Shanghai Pudong,PVG,26K,,Economy,1420,1256,144
 10 Sep,2016,CX635,Cathay Pacific,Hong Kong,HKG,Singapore,SIN,51K,,Economy,1440,2583,297
 10 Sep,2016,KA803,Dragonair,Shanghai Pudong,PVG,Hong Kong,HKG,35F,,Economy,1130,1256,144
 12 Oct,2016,MU5006,China Eastern,Singapore,SIN,Shanghai Pudong,PVG,42F,,Economy,,3829,440
-19 Oct,2016,GE337,TransAsia,Shanghai Hongqiao,SHA,Taipei Songshan,TSA,9E,B11,Economy,1030,669,77
+19 Oct,2016,GE337,TransAsia,Shanghai Pudong,PVG,Taipei,TPE,9E,B11,Economy,1030,669,77
 28 Oct,2016,BR0006,EVA Air,Taipei,TPE,Los Angeles,LAX,22A,C9,Business,0940,10753,3086
 09 Dec,2016,CI5,China Airlines,Los Angeles,LAX,Taipei,TPE,42G,,Economy,0312,10753,1237
 11 Dec,2016,CI501,China Airlines,Taipei,TPE,Shanghai Pudong,PVG,32F,,Economy,0001,682,78
-21 Dec,2016,FM819,Shanghai Airlines,Singapore,SIN,Taipei Songshan,TSA,51B,212,Economy,0955,3326,382
+21 Dec,2016,FM819,Shanghai Airlines,Singapore,SIN,Taipei,TPE,51B,212,Economy,0955,3326,382
 09 Jan,2017,CA196,Air China,Taipei,TPE,Shanghai Pudong,PVG,36A,,Economy,,682,78
 16 Jan,2017,UA199,United Airlines,Shanghai Pudong,PVG,Los Angeles,LAX,19A,85,Economy,2025,11149,1282
-16 Feb,2017,CA198,Air China,Taipei Songshan,TSA,Shanghai Pudong,PVG,33L,,Economy,,669,77
+16 Feb,2017,CA198,Air China,Taipei,TPE,Shanghai Pudong,PVG,33L,,Economy,,669,77
 26 Feb,2017,BR0721,EVA Air,Shanghai Pudong,PVG,Taipei,TPE,45D,,Economy,,682,78
-02 Mar,2017,CA198,Air China,Taipei Songshan,TSA,Shanghai,SHA,5A,,Economy,,669,77
+02 Mar,2017,CA198,Air China,Taipei,TPE,TShanghai Pudong,PVG,5A,,Economy,,669,77
 28 Mar,2017,MU504,China Eastern,Singapore,SIN,Shanghai Pudong,PVG,40A,,Economy,,3829,440
 12 Apr,2017,CI502,China Airlines,Shanghai Pudong,PVG,Taipei,TPE,62F,,Economy,0241,682,78
 16 Apr,2017,CI501,China Airlines,Taipei,TPE,Shanghai Pudong,PVG,52J,,Economy,0287,682,78
@@ -60,7 +60,7 @@ Date,Year,Flight,Airline,From,FromCode,To,ToCode,Seat,Gate,Class,BoardingTime,Di
 26 Apr,2025,HX235,Hong Kong Airlines,Shanghai Pudong,PVG,Hong Kong,HKG,32C,G153,Economy,0915,1256,144
 26 Apr,2025,HX232,Hong Kong Airlines,Hong Kong,HKG,Shanghai Pudong,PVG,34C,219,Economy,1820,1256,144
 30 Apr,2025,MU511,China Eastern,Shanghai Pudong,PVG,Seoul Gimpo,GMP,25A,T09,Economy,0730,866,100
-03 May,2025,FM824,Shanghai Airlines,Shanghai Pudong,PVG,Shanghai Hongqiao,SHA,10A,38,Business,2020,45,11
+03 May,2025,FM824,Shanghai Airlines,Shanghai Pudong,PVG,Shanghai Pudong,PVG,10A,38,Business,2020,45,11
 06 May,2025,MU9732,China Eastern,Shanghai Pudong,PVG,Dali,DLU,7A,65,Business,1220,2142,546
 08 May,2025,MU9731,China Eastern,Dali,DLU,Shanghai Pudong,PVG,36A,4,Economy,1710,2142,246
 10 May,2025,MU5111,China Eastern,Shanghai Pudong,PVG,Beijing,PEK,48A,38,Economy,1220,1076,124

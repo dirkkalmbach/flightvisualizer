@@ -1,0 +1,88 @@
+Datum,Jahr,Flug,Airline,Von,Von-Code,Nach,Nach-Code,Seat,Klasse,Distanz_km,CO2_kg,Konfidenz,Jahr-Quelle
+18 Jan,2016,9C8550,Spring Airlines,Singapore,SIN,Shanghai,SHA,30A,Economy,3829,440,Mittel,"Kein BP im PDF, Jahr aus CSV"
+17 Feb,2016,MU544,China Eastern,Singapore,SIN,Shanghai Pudong,PVG,39F,Economy,3829,440,Mittel,"Kein BP im PDF, Jahr aus CSV"
+25 Feb,2016,MU5104,China Eastern,Singapore,SIN,Shanghai Hongqiao,SHA,37F,Economy,3829,440,Hoch,"BP vorhanden (p12), Stempel-Kontext 2016, ""25FEB"" auf BP"
+28 Apr,2016,MU545,China Eastern,Shanghai Pudong,PVG,Singapore,SIN,68L,Economy,3829,440,Niedrig,"BP vorhanden (p11), KONFLIKT: MU545 28APR PVG?SIN & TG663 28APR PVG?BKK am selben Tag - unm�glich, TG663 hat BP (p53) mit Ausreisestempel, MU545-Datum aus CSV m�glicherweise falsch"
+28 Apr,2016,TG663,Thai Airways,Shanghai Pudong,PVG,Bangkok,BKK,31K,Economy,2546,293,Mittel,"Kein BP im PDF, Jahr aus CSV"
+08 May,2016,CA195,Air China,Shanghai Pudong,PVG,Taipei,TPE,34L,Economy,682,78,Niedrig,"BP vorhanden (p8), kein Jahr-Stempel, selbe Route wie CA196 08May2016 im CSV, evtl. anderes Jahr"
+08 May,2016,CA0196,China Airlines,Taipei,TPE,Shanghai Pudong,PVG,34L,Economy,682,78,Mittel,"Kein BP im PDF, Jahr aus CSV"
+12 May,2016,MU543,China Eastern,Shanghai Pudong,PVG,Singapore,SIN,32J,Economy,3829,440,Mittel,"Kein BP im PDF, Jahr aus CSV"
+15 May,2016,JQ116,Jetstar,Denpasar Bali,DPS,Singapore,SIN,3E,Economy,1660,191,Hoch,"BP vorhanden (p26), ""15May16"" explizit auf BP"
+25 May,2016,MU568,China Eastern,Singapore,SIN,Shanghai Pudong,PVG,40L,Economy,3829,440,Niedrig,"BP vorhanden (p3), Jahr aus BP-Kontext 2016 (kein Jahr-Stempel lesbar), MU568 typisch SIN-PVG"
+10 Jun,2016,MU543,China Eastern,Shanghai Pudong,PVG,Singapore,SIN,41C,Economy,3829,440,Mittel,"Kein BP im PDF, Jahr aus CSV"
+12 Jun,2016,AK718,AirAsia,Singapore,SIN,Kuala Lumpur,KUL,4C,Economy,315,36,Mittel,"Kein BP im PDF, Jahr aus CSV"
+21 Jun,2016,TG673,Thai Airways,Osaka,KIX,Bangkok,BKK,31A,Economy,4730,544,Mittel,"Kein BP im PDF, Jahr aus CSV"
+23 Jun,2016,TG431,Thai Airways,Bangkok,BKK,Denpasar Bali,DPS,31F,Economy,2260,260,Mittel,"BP vorhanden (p14): TG431 23JUN BKK?DPS Chang seat 31F (Konfidenz Hoch), p13: Thai Baggage Receipt TG25672 BKK?DPS 23JUN f�r Chang best�tigt"
+30 Jun,2016,MU5160,China Eastern,Singapore,SIN,Shanghai Hongqiao,SHA,42A,Economy,3829,440,Mittel,"Kein BP im PDF, Jahr aus CSV"
+02 Jul,2016,CX367,Cathay Pacific,Shanghai Pudong,PVG,Hong Kong,HKG,49F,Economy,1256,144,Hoch,"Bag-Tag (p2) zeigt CX367/02JUL HKG (Teilstrecke) + CX635/02JUL SIN (Endstrecke), CX367 = PVG?HKG best�tigt, Anschluss auf CX635 (Row 19)"
+02 Jul,2016,CX635,Cathay Pacific,Hong Kong,HKG,Singapore,SIN,,Economy,2583,297,Hoch,"BP vorhanden (p25), CX635 HKG?SIN 02JUL16 explizit, Bag-Tag (p2) zeigt CX367/02JUL HKG (durchgestrichen) + CX635/02JUL SIN, CX635 ist korrekt"
+30 Jul,2016,HX707,Hong Kong Airlines,Hong Kong,HKG,Denpasar Bali,DPS,15C,Business,3290,944,Mittel,"Kein BP im PDF, Jahr aus CSV"
+30 Jul,2016,HX235,Hong Kong Airlines,Shanghai Pudong,PVG,Hong Kong,HKG,12D,Business,1256,360,Mittel,"BP vorhanden (p21), kein Jahr-Stempel, Teil der HX707/HX708/HX236-Reise Aug 2016, dep 07:25"
+03 Aug,2016,HX708,Hong Kong Airlines,Denpasar Bali,DPS,Hong Kong,HKG,2G,Business,3290,944,Mittel,"Kein BP im PDF, Jahr aus CSV"
+03 Aug,2016,HX236,Hong Kong Airlines,Hong Kong,HKG,Shanghai Pudong,PVG,15A,Business,1256,360,Mittel,"Kein BP im PDF, Jahr aus CSV"
+16 Aug,2016,CX360,Cathay Pacific,Shanghai Pudong,PVG,Hong Kong,HKG,49F,Economy,1256,144,Mittel,"Kein BP im PDF, Jahr aus CSV"
+21 Aug,2016,CX739,Dragonair,Hong Kong,HKG,Singapore,SIN,54K,Economy,2583,297,Hoch,"BP vorhanden (p28), ""21AUG16"" eingekreist auf BP"
+21 Aug,2016,KA???,Dragonair,Shanghai Pudong,PVG,Hong Kong,HKG,48K,Economy,1256,144,Hoch,"BP vorhanden (p30), Ausreisestempel ""16-08-21"" best�tigt 21Aug2016, Flugnummer durch Stempel verdeckt, dep 07:20"
+23 Aug,2016,3K683,Jetstar,Singapore,SIN,Kuala Lumpur,KUL,20A,Economy,315,36,Hoch,"BP vorhanden (p6), ""23Aug16"" explizit auf BP"
+26 Aug,2016,MH0619,Malaysia Airlines,Kuala Lumpur,KUL,Singapore,SIN,23E,Economy,315,36,Hoch,"BP vorhanden (p36), Immigration Stempel ""26 AUG 2016"""
+06 Sep,2016,KA890,Dragonair,Hong Kong,HKG,Shanghai Pudong,PVG,26K,Economy,1256,144,Hoch,"BP vorhanden (p35), ""6SEP16"" auf Stub"
+06 Sep,2016,CX736,Cathay Pacific,Hong Kong,HKG,Singapore,SIN,60H,Economy,2583,297,Hoch,"BP vorhanden (p32), ""6SEP16"" auf Stub"
+10 Sep,2016,CX635,Cathay Pacific,Hong Kong,HKG,Singapore,SIN,51K,Economy,2583,297,Hoch,"BP vorhanden (p31), ""10SEP16"" auf Stub"
+10 Sep,2016,KA803,Dragonair,Shanghai Pudong,PVG,Hong Kong,HKG,35F,Economy,1256,144,Hoch,"BP vorhanden (p29), ""10SEP16"" Stempel"
+24 Sep,2016,9C8549,Spring Airlines,Shanghai,SHA,Singapore,SIN,8F,Economy,3829,440,Mittel,"Kein BP im PDF, Jahr aus CSV"
+26 Sep,2016,AK718,AirAsia,Singapore,SIN,Kuala Lumpur,KUL,10B,Economy,315,36,Mittel,"Kein BP im PDF, Jahr aus CSV"
+12 Oct,2016,MU5006,China Eastern,Singapore,SIN,Shanghai Pudong,PVG,42F,Economy,3829,440,Mittel,"Kein BP im PDF, Jahr aus CSV"
+19 Oct,2016,GE337,TransAsia,Shanghai Hongqiao,SHA,Taipei Songshan,TSA,9E,Economy,669,77,Hoch,"BP vorhanden (p44), TransAsia eingestellt Nov 2016 ? Jahr 2016 gesichert"
+28 Oct,2016,BR0006,EVA Air,Taipei,TPE,Los Angeles,LAX,22A,Business,10753,3086,Mittel,"Kein BP im PDF, Jahr aus CSV"
+09 Dec,2016,CI5,China Airlines,Los Angeles,LAX,Taipei,TPE,42G,Economy,10753,1237,Mittel,"Kein BP im PDF, Jahr aus CSV"
+11 Dec,2016,CI501,China Airlines,Taipei,TPE,Shanghai Pudong,PVG,32F,Economy,682,78,Mittel,"Kein BP im PDF, Jahr aus CSV"
+21 Dec,2016,FM819,Shanghai Airlines,Shanghai,SHA,Taipei Songshan,TSA,51B,Economy,3326,382,Mittel,"BP vorhanden (p47), FM819=Shanghai Airlines SHA?TSA (nicht SIN), Bagtag 21DEC TSA"
+05 Jan,2017,CI202,China Airlines,Shanghai Hongqiao,SHA,Taipei Songshan,TSA,17D,Economy,682,78,Niedrig,"BP vorhanden (PDF p6), ETKT 2975503963919, kein Jahresstempel, chronologisch vor CA198 26Feb2017 (Hinflug TSA), Jan2017 plausibel"
+09 Jan,2017,CA196,Air China,Taipei,TPE,Shanghai Pudong,PVG,36A,Economy,682,78,Hoch,"BP (p43) + Excess Baggage Ticket ""JAN-9 2017"" (p42)"
+16 Jan,2017,UA199,United Airlines,Shanghai Pudong,PVG,Los Angeles,LAX,19A,Economy,11149,1282,Hoch,"BP vorhanden (p41), ""JANUARY 16 2017"" explizit auf BP"
+16 Feb,2017,CA198,Air China,Taipei Songshan,TSA,Shanghai Pudong,PVG,33L,Economy,669,77,Mittel,"Kein BP im PDF, Jahr aus CSV"
+26 Feb,2017,CA198,Air China,Taipei Songshan,TSA,Shanghai,SHA,52J,Economy,669,77,Mittel,"BP vorhanden (PDF p2), FQTV BR 3318243972 wie BR0721 26Feb2017, selber Tag wie BR0721 Abflug PVG?TPE, kein Jahresstempel, 2017 durch FQTV-Kontext"
+26 Feb,2017,BR0721,EVA Air,Shanghai Pudong,PVG,Taipei,TPE,45D,Economy,682,78,Hoch,"BP vorhanden (p57), Ausreisestempel ""2017-02-26"""
+02 Mar,2017,CA198,Air China,Taipei Songshan,TSA,Shanghai,SHA,5A,Economy,669,77,Mittel,"Kein BP im PDF, Jahr aus CSV"
+22 Mar,2017,H01305,Juneyao Air,Shanghai Pudong,PVG,Hong Kong,HKG,29C,Economy,1256,144,Hoch,"BP vorhanden (p9), Stempel 2017"
+28 Mar,2017,MU504,China Eastern,Singapore,SIN,Shanghai Pudong,PVG,40A,Economy,3829,440,Mittel,"Kein BP im PDF, Jahr aus CSV"
+12 Apr,2017,CI502,China Airlines,Shanghai Pudong,PVG,Taipei,TPE,62F,Economy,682,78,Mittel,"Kein BP im PDF, Jahr aus CSV"
+16 Apr,2017,CI501,China Airlines,Taipei,TPE,Shanghai Pudong,PVG,52J,Economy,682,78,Mittel,"Kein BP im PDF, Jahr aus CSV"
+17 May,2017,CA196,Air China,Taipei,TPE,Shanghai Pudong,PVG,16L,Economy,682,78,Mittel,"Kein BP im PDF, Jahr aus CSV"
+26 May,2017,MU701,China Eastern,Shanghai Pudong,PVG,Hong Kong,HKG,39B,Economy,1256,144,Hoch,"BP vorhanden (p60), Ausreisestempel 2017"
+22 Jun,2017,MU701,China Eastern,Shanghai Pudong,PVG,Hong Kong,HKG,37K,Economy,1256,144,Hoch,"BP vorhanden (p7), Ausreisestempel 2017 sichtbar"
+29 Nov,2017,CA198,Air China,Taipei Songshan,TSA,Shanghai,SHA,43J,Economy,669,77,Niedrig,"BP vorhanden (PDF p14), kein Jahresstempel, FQTV BR 3318243972 (EVA Air) wie CA198 26Feb2017, Nov2017 wahrscheinlich als letzter Flug vor langer L�cke, alternativ 2016 m�glich"
+17 Oct,2019,TG216,Thai Airways,Phuket,HKT,Bangkok,BKK,50A,Economy,862,99,Hoch,"BP vorhanden (2019-10-17.pdf), ETKT 217635740350403 (Coupon 3), Dateiname best�tigt 17 Okt 2019, FQTV BR 3318243972"
+18 Oct,2019,TG662,Thai Airways,Bangkok,BKK,Shanghai Pudong,PVG,61J,Economy,3101,357,Hoch,"BP vorhanden (2019-10-18.pdf), ETKT 217635740350404 (Coupon 4), Dateiname best�tigt 18 Okt 2019, FQTV BR 3318243972"
+26 Jan,2025,FM851,Shanghai Airlines,Shanghai Pudong,PVG,Taipei Songshan,TSA,35J,Economy,682,78,Hoch,"BP vorhanden, CSV 2025"
+27 Jan,2025,MU5097,China Eastern,Shanghai Pudong,PVG,Taipei Songshan,TSA,6L,Business,682,174,Hoch,ETKT 7815507315401/1 im BP
+30 Jan,2025,MU5098,China Eastern,Taipei Songshan,TSA,Shanghai Pudong,PVG,9L,Business,682,174,Hoch,ETKT 7815507315401/2 im BP
+09 Feb,2025,MU5109,China Eastern,Shanghai Pudong,PVG,Beijing,PEK,41C,Economy,1076,124,Hoch,ETKT 7819807543592/1 im BP
+10 Feb,2025,MU5110,China Eastern,Beijing,PEK,Shanghai Pudong,PVG,41C,Economy,1076,124,Hoch,ETKT 7819807543592/2 im BP
+14 Feb,2025,MU5097,China Eastern,Shanghai Pudong,PVG,Taipei Songshan,TSA,35A,Economy,682,78,Hoch,ETKT 7815006597068/1 im BP
+22 Mar,2025,MU5011,China Eastern,Shanghai Pudong,PVG,Seoul Incheon,ICN,7C,Business,839,214,Hoch,ETKT 7816405290603/1 im BP
+25 Mar,2025,MU5052,China Eastern,Shanghai Pudong,PVG,Seoul Incheon,ICN,8L,Business,821,209,Hoch,ETKT 7816405290603/2 im BP
+15 Apr,2025,MU5017,China Eastern,Shanghai Pudong,PVG,Hong Kong,HKG,32A,Economy,1232,142,Hoch,ETKT 7819443483072/1 im BP
+16 Apr,2025,CX362,Cathay Pacific,Hong Kong,HKG,Shanghai Pudong,PVG,45D,Economy,1256,144,Hoch,"BP vorhanden, CSV 2025"
+26 Apr,2025,HX235,Hong Kong Airlines,Shanghai Pudong,PVG,Hong Kong,HKG,32C,Economy,1256,144,Hoch,ETKT 8519443873090/1 im BP
+26 Apr,2025,HX232,Hong Kong Airlines,Hong Kong,HKG,Shanghai Pudong,PVG,34C,Economy,1256,144,Hoch,ETKT 8519443873090/2 im BP
+30 Apr,2025,MU511,China Eastern,Shanghai Pudong,PVG,Seoul Gimpo,GMP,25A,Economy,866,100,Hoch,"BP vorhanden, CSV 2025"
+03 May,2025,FM824,Shanghai Airlines,Shanghai Pudong,PVG,Shanghai Hongqiao,SHA,10A,Business,45,11,Hoch,ETKT 7816406739851/2 im BP
+06 May,2025,MU9732,China Eastern,Shanghai Pudong,PVG,Dali,DLU,7A,Business,2142,546,Hoch,ETKT 7819264361828/1 im BP
+08 May,2025,MU9731,China Eastern,Dali,DLU,Shanghai Pudong,PVG,36A,Economy,2142,246,Hoch,ETKT 7819264361828/2 im BP
+10 May,2025,MU5111,China Eastern,Shanghai Pudong,PVG,Beijing,PEK,48A,Economy,1076,124,Hoch,ETKT 7812717041300/1 im BP
+26 Jun,2025,CX303,Cathay Pacific,Shanghai Pudong,PVG,Hong Kong,HKG,31C,Economy,1256,144,Hoch,"BP vorhanden, CSV 2025"
+30 Jun,2025,CX342,Cathay Pacific,Hong Kong,HKG,Shanghai Pudong,PVG,39E,Economy,1232,142,Hoch,"BP vorhanden, CSV 2025"
+10 Jul,2025,EK305,Emirates,Shanghai Pudong,PVG,Dubai,DXB,09B,Business,6449,1644,Hoch,BP + Ausreisestempel 2025-07-10
+10 Jul,2025,EK0047,Emirates,Dubai,DXB,Frankfurt,FRA,10A,Business,4843,1235,Hoch,BP 1762853284932-2 im PDF
+15 Jul,2025,4Y0514,Discover Airlines,Frankfurt,FRA,Palma de Mallorca,PMI,014E,Economy,1252,144,Hoch,"BP vorhanden, CSV 2025"
+20 Jul,2025,LH1159,Lufthansa,Palma de Mallorca,PMI,Frankfurt,FRA,032B,Economy,1252,144,Hoch,"BP vorhanden, CSV 2025"
+26 Jul,2025,EK048,Emirates,Frankfurt,FRA,Dubai,DXB,07K,Business,4843,1235,Hoch,BP 1762853284932-3 im PDF
+27 Jul,2025,EK0304,Emirates,Dubai,DXB,Shanghai Pudong,PVG,08K,Business,6449,1644,Hoch,BP 1762853284932-4 im PDF
+22 Aug,2025,MU5097,China Eastern,Shanghai Pudong,PVG,Taipei Songshan,TSA,12A,Business,682,174,Hoch,ETKT 7812696649337/1 im BP
+28 Aug,2025,MU5098,China Eastern,Taipei Songshan,TSA,Shanghai Hongqiao,SHA,9A,Business,682,174,Hoch,"BP vorhanden (PDF p12), ETKT 7812696649337/2 = Coupon 2 von MU5097 22Aug2025 (Coupon 1) ? Jahr 2025 SICHER"
+03 Oct,2025,MU5059,China Eastern,Shanghai Pudong,PVG,Jeju,CJU,33A,Economy,513,59,Hoch,ETKT 7812751819698/1 im BP
+06 Oct,2025,MU5028,China Eastern,Jeju,CJU,Shanghai Pudong,PVG,33A,Economy,513,59,Hoch,ETKT 7812751819698/2 im BP
+09 Jan,2026,MU5098,China Eastern,Taipei Songshan,TSA,Shanghai Hongqiao,SHA,35C,Economy,682,78,Mittel,"BP vorhanden (PDF p4), ETKT 7815505165481, FQTV MU 604044349118 identisch mit Aug2025 BPs ? 2026 sehr wahrscheinlich, kein Jahresstempel"
+09 Feb,2026,FM852,Shanghai Airlines,Shanghai Hongqiao,SHA,Taipei Songshan,TSA,34L,Economy,682,78,Mittel,"BP vorhanden (PDF p8), ETKT 7816409566247/1 ? Seriennr. nach FM824 Mai2025 ? FEB 2026, kein Jahresstempel auf BP"
+01 May,2016,GA841,Garuda Indonesia,Singapore,SIN,Denpasar Bali,DPS,??,Economy,1660,191,Niedrig,"BP sehr verblasst (p27), Datum nicht lesbar, Hinflug vor JQ116 15May2016 DPS?SIN vermutet, Jahr 2016 unsicher"

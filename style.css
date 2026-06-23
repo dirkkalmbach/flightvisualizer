@@ -1,0 +1,323 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0a0a0f;
+    overflow: hidden;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    color: #e0e0e0;
+}
+
+/* INTRO */
+#intro {
+    position: fixed;
+    inset: 0;
+    background: #0a0a0f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    z-index: 9999;
+    transition: opacity 1.5s ease-out;
+    letter-spacing: 2px;
+    color: #00ffd5;
+}
+
+#intro .spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #333;
+    border-top-color: #00ffd5;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* MAP */
+svg {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+}
+
+.country {
+    fill: #151520;
+    stroke: #2a2a3a;
+    stroke-width: 0.4;
+}
+
+.route {
+    fill: none;
+    stroke: #00ffd5;
+    stroke-width: 1.4;
+    opacity: 0;
+}
+
+.route-business {
+    stroke: #ffd700;
+}
+
+.route-count {
+    fill: #fff;
+    font-size: 9px;
+    font-family: monospace;
+    font-weight: 700;
+    text-anchor: middle;
+    pointer-events: none;
+    stroke: #0a0a0f;
+    stroke-width: 3px;
+    paint-order: stroke fill;
+}
+
+.airport-dot {
+    fill: #ff3b5c;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.airport-label {
+    fill: #888;
+    font-size: 9px;
+    font-family: monospace;
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+/* HEADER */
+#header {
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #555;
+}
+
+#header h1 {
+    font-size: 11px;
+    font-weight: 400;
+}
+
+/* YEAR DISPLAY */
+#year-display {
+    position: absolute;
+    bottom: 80px;
+    left: 32px;
+    font-size: 64px;
+    font-weight: 200;
+    color: #00ffd5;
+    opacity: 0.8;
+    letter-spacing: -2px;
+}
+
+/* FLIGHT INFO */
+#flight-info {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.4;
+}
+
+#flight-info .route-label {
+    font-size: 16px;
+    color: #e0e0e0;
+    margin-bottom: 4px;
+}
+
+/* STATS */
+#stats {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    font-size: 12px;
+    line-height: 2;
+    text-align: right;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#stats .stat-value {
+    color: #00ffd5;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#stats .stat-label {
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* CONTROLS */
+#controls {
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+#controls button, #controls select {
+    background: rgba(20, 20, 30, 0.8);
+    color: #aaa;
+    border: 1px solid #2a2a3a;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    transition: all 0.2s;
+    border-radius: 4px;
+}
+
+#controls button:hover, #controls select:hover {
+    border-color: #00ffd5;
+    color: #00ffd5;
+}
+
+#controls button.active {
+    border-color: #00ffd5;
+    color: #00ffd5;
+}
+
+#controls select {
+    appearance: none;
+    padding-right: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    #header {
+        top: 12px;
+        left: 12px;
+    }
+
+    #year-display {
+        font-size: 36px;
+        bottom: auto;
+        top: 12px;
+        left: auto;
+        right: 12px;
+    }
+
+    #stats {
+        top: auto;
+        bottom: 100px;
+        right: 12px;
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    #stats .stat-value {
+        font-size: 15px;
+    }
+
+    #stats .stat-label {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    #flight-info {
+        bottom: 56px;
+        left: 12px;
+        right: 12px;
+        font-size: 11px;
+    }
+
+    #flight-info .route-label {
+        font-size: 13px;
+    }
+
+    #controls {
+        bottom: 10px;
+        left: 12px;
+        right: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    #controls button, #controls select {
+        padding: 10px 14px;
+        font-size: 13px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    #legend {
+        top: 44px;
+        right: 12px;
+        font-size: 9px;
+    }
+
+    #tooltip {
+        max-width: 180px;
+        font-size: 10px;
+    }
+}
+
+/* PROGRESS BAR */
+#progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: #00ffd5;
+    opacity: 0.6;
+    transition: width 0.3s ease-out;
+}
+
+/* AIRLINE LEGEND */
+#legend {
+    position: absolute;
+    top: 60px;
+    right: 32px;
+    font-size: 10px;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#legend .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    color: #555;
+}
+
+#legend .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* TOOLTIP */
+#tooltip {
+    position: absolute;
+    background: rgba(10, 10, 15, 0.95);
+    border: 1px solid #2a2a3a;
+    padding: 10px 14px;
+    font-size: 11px;
+    line-height: 1.6;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    max-width: 240px;
+    z-index: 100;
+}

@@ -1,255 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Boarding Pass Flight Map</title>
-
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
-
-<style>
-body {
-    margin: 0;
-    background: black;
-    overflow: hidden;
-    font-family: monospace;
-    color: white;
-}
-
-/* ---------------- INTRO SCREEN ---------------- */
-#intro {
-    position: fixed;
-    inset: 0;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    z-index: 9999;
-    opacity: 1;
-    transition: opacity 2s ease;
-}
-
-/* ---------------- MAP ---------------- */
-svg {
-    width: 100vw;
-    height: 100vh;
-}
-
-.country {
-    fill: #111;
-    stroke: #333;
-    stroke-width: 0.5;
-}
-
-.route {
-    fill: none;
-    stroke: #00ffd5;
-    stroke-width: 1.2;
-    opacity: 0.85;
-}
-
-.airport {
-    fill: #ff3b3b;
-}
-
-/* ---------------- UI ---------------- */
-#year {
-    position: absolute;
-    bottom: 40px;
-    left: 40px;
-    font-size: 48px;
-}
-
-#stats {
-    position: absolute;
-    right: 40px;
-    top: 40px;
-    font-size: 14px;
-    line-height: 1.6;
-    opacity: 0;
-    transition: opacity 1s;
-}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flight Visualizer</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 </head>
-
 <body>
 
-<!-- INTRO -->
-<div id="intro">Loading boarding passes...</div>
+<div id="intro">
+    <div class="spinner"></div>
+    Loading flight log...
+</div>
 
-<!-- UI -->
-<div id="year">2015</div>
+<div id="header"><h1>Flight Log</h1></div>
+<div id="year-display">----</div>
+<div id="flight-info"></div>
 <div id="stats"></div>
+
+<div id="controls">
+    <button id="btn-play">&#9654; Play</button>
+    <button id="btn-pause">&#9208; Pause</button>
+    <button id="btn-reset">&#8634; Reset</button>
+    <button id="btn-all">All</button>
+    <select id="speed">
+        <option value="2500">0.5x</option>
+        <option value="1500" selected>1x</option>
+        <option value="800">2x</option>
+        <option value="400">4x</option>
+    </select>
+</div>
+
+<div id="progress"></div>
 
 <svg></svg>
 
-<script>
-
-// ---------------------- DATA ----------------------
-const airports = {
-    FRA: [8.5622, 50.0379],
-    LHR: [-0.4543, 51.4700],
-    JFK: [-73.7781, 40.6413],
-    SIN: [103.9915, 1.3644],
-    NRT: [140.3929, 35.7767],
-    DXB: [55.3644, 25.2532]
-};
-
-const flights = [
-    {from:"FRA", to:"LHR", year:2015},
-    {from:"LHR", to:"JFK", year:2016},
-    {from:"FRA", to:"JFK", year:2016},
-    {from:"FRA", to:"SIN", year:2017},
-    {from:"SIN", to:"NRT", year:2018},
-    {from:"FRA", to:"DXB", year:2019}
-];
-
-// ---------------------- SETUP ----------------------
-const width = window.innerWidth;
-const height = window.innerHeight;
-
-const svg = d3.select("svg");
-
-const projection = d3.geoNaturalEarth1()
-    .scale(260)
-    .translate([width/2, height/2]);
-
-const path = d3.geoPath().projection(projection);
-
-// ---------------------- LOAD WORLD ----------------------
-d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
-.then(world => {
-
-    const countries = topojson.feature(world, world.objects.countries);
-
-    svg.append("g")
-        .selectAll("path")
-        .data(countries.features)
-        .enter()
-        .append("path")
-        .attr("class", "country")
-        .attr("d", path);
-
-    drawAirports();
-
-    startIntro();
-});
-
-// ---------------------- AIRPORTS ----------------------
-function drawAirports() {
-    svg.selectAll(".airport")
-        .data(Object.entries(airports))
-        .enter()
-        .append("circle")
-        .attr("class", "airport")
-        .attr("r", 2.5)
-        .attr("cx", d => projection(d[1])[0])
-        .attr("cy", d => projection(d[1])[1]);
-}
-
-// ---------------------- GREAT CIRCLE ----------------------
-function route(from, to) {
-    return {
-        type: "LineString",
-        coordinates: [
-            airports[from],
-            airports[to]
-        ]
-    };
-}
-
-// ---------------------- PLANE ANIMATION ----------------------
-function animatePlane(pathNode) {
-
-    const plane = svg.append("circle")
-        .attr("r", 3)
-        .attr("fill", "white");
-
-    const len = pathNode.getTotalLength();
-
-    plane.transition()
-        .duration(2000)
-        .ease(d3.easeLinear)
-        .attrTween("transform", () => {
-            return (t) => {
-                const p = pathNode.getPointAtLength(t * len);
-                return `translate(${p.x},${p.y})`;
-            };
-        })
-        .on("end", () => plane.remove());
-}
-
-// ---------------------- FLIGHT DRAW ----------------------
-function drawFlight(f, i) {
-
-    const geo = route(f.from, f.to);
-    const d = path(geo);
-
-    const p = svg.append("path")
-        .attr("class", "route")
-        .attr("d", d)
-        .attr("stroke-dasharray", function() {
-            return this.getTotalLength();
-        })
-        .attr("stroke-dashoffset", function() {
-            return this.getTotalLength();
-        });
-
-    p.transition()
-        .duration(1500)
-        .attr("stroke-dashoffset", 0);
-
-    animatePlane(p.node());
-
-    d3.select("#year").text(f.year);
-
-    d3.select("#stats")
-        .style("opacity", 1)
-        .html(`
-            Flights: ${i+1}<br>
-            Airports: ${Object.keys(airports).length}<br>
-            Countries: ~${new Set(flights.slice(0,i+1).map(d => d.from)).size}<br>
-            Distance: ${(i+1)*6100} km
-        `);
-}
-
-// ---------------------- INTRO ----------------------
-function startIntro() {
-
-    setTimeout(() => {
-
-        d3.select("#intro")
-            .transition()
-            .duration(2000)
-            .style("opacity", 0)
-            .remove();
-
-        startAnimation();
-
-    }, 2000);
-}
-
-// ---------------------- MAIN LOOP ----------------------
-function startAnimation() {
-
-    let i = 0;
-
-    function loop() {
-
-        if (i >= flights.length) return;
-
-        drawFlight(flights[i], i);
-        i++;
-
-        setTimeout(loop, 2200);
-    }
-
-    loop();
-}
-
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>

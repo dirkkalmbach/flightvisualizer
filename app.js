@@ -2,7 +2,6 @@ const AIRPORT_COORDS = {
     PVG: [121.8052, 31.1443],
     PEK: [116.5880, 40.0799],
     TPE: [121.2332, 25.0777],
-    SHA: [121.3362, 31.1979],
     ICN: [126.4505, 37.4602],
     GMP: [126.7906, 37.5583],
     HKG: [113.9145, 22.3080],
@@ -17,7 +16,7 @@ const AIRPORT_COORDS = {
     DPS: [115.1672, -8.7482],
     KIX: [135.2440, 34.4347],
     LAX: [-118.4085, 33.9425],
-    TSA: [121.5519, 25.0694]
+    HKT: [98.3169, 8.1132]
 };
 
 let svg, projection, pathGen, gMap, gRoutes, gAirports;
@@ -34,7 +33,7 @@ let totalDistance = 0;
 let totalCO2 = 0;
 
 function parseFlightDate(f) {
-    return new Date(f.Date + " " + f.Year);
+    return new Date(f.Datum + " " + f.Jahr);
 }
 
 function initMap() {
@@ -66,7 +65,7 @@ function initMap() {
 function loadData() {
     return Promise.all([
         d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"),
-        d3.csv("data/flugdaten_alt.csv")
+        d3.csv("data/flugdaten.csv")
     ]).then(([world, data]) => {
         flights = data.sort((a, b) => parseFlightDate(a) - parseFlightDate(b));
 
@@ -124,14 +123,16 @@ function routeKey(a, b) {
 }
 
 function drawFlight(f, i) {
-    const geo = makeRoute(f.FromCode, f.ToCode);
+    const fromCode = f["Von-Code"];
+    const toCode = f["Nach-Code"];
+    const geo = makeRoute(fromCode, toCode);
     if (!geo) return;
 
-    showAirport(f.FromCode, f.From);
-    showAirport(f.ToCode, f.To);
+    showAirport(fromCode, f.Von);
+    showAirport(toCode, f.Nach);
 
-    const key = routeKey(f.FromCode, f.ToCode);
-    const isBusiness = f.Class === "Business";
+    const key = routeKey(fromCode, toCode);
+    const isBusiness = f.Klasse === "Business";
 
     if (routeCounts[key]) {
         routeCounts[key]++;
@@ -151,10 +152,10 @@ function drawFlight(f, i) {
 
         if (isBusiness) existingPath.classed("route-business", true);
 
-        const from = AIRPORT_COORDS[f.FromCode];
-        const to = AIRPORT_COORDS[f.ToCode];
-        const mid = [(from[0] + to[0]) / 2, (from[1] + to[1]) / 2];
-        const [mx, my] = projection(mid);
+        const pathNode = existingPath.node();
+        const midPoint = pathNode.getPointAtLength(pathNode.getTotalLength() / 2);
+        const mx = midPoint.x;
+        const my = midPoint.y;
 
         if (routeLabels[key]) {
             routeLabels[key]
@@ -198,8 +199,8 @@ function drawFlight(f, i) {
         routePaths[key] = routePath;
     }
 
-    const dist = +f.Distance || 0;
-    const co2 = +f.CO2 || 0;
+    const dist = +f.Distanz_km || 0;
+    const co2 = +f.CO2_kg || 0;
     totalDistance += dist;
     totalCO2 += co2;
 
@@ -211,9 +212,10 @@ function drawFlight(f, i) {
         .text(date.getFullYear());
 
     d3.select("#flight-info").html(
-        `<div class="route-label">${f.From} → ${f.To}</div>` +
-        `${f.Airline} · ${f.Flight} · ${f.Class}` +
-        (dist ? ` · ${dist.toLocaleString()} km` : "")
+        `<div class="route-label">${f.Von} → ${f.Nach}</div>` +
+        `${f.Airline} · ${f.Flug} · ${f.Klasse}` +
+        (dist ? ` · ${dist.toLocaleString()} km` : "") +
+        (co2 ? ` · ${co2.toLocaleString()} kg CO₂` : "")
     );
 
     d3.select("#stats")
@@ -326,15 +328,10 @@ document.addEventListener("DOMContentLoaded", () => {
         gRoutes.selectAll(".route-count").each(function () {
             const el = d3.select(this);
             const key = el.attr("data-key");
-            if (!key) return;
-            const codes = key.split("-");
-            const from = AIRPORT_COORDS[codes[0]];
-            const to = AIRPORT_COORDS[codes[1]];
-            if (from && to) {
-                const mid = [(from[0] + to[0]) / 2, (from[1] + to[1]) / 2];
-                const [mx, my] = projection(mid);
-                el.attr("x", mx).attr("y", my - 6);
-            }
+            if (!key || !routePaths[key]) return;
+            const pathNode = routePaths[key].node();
+            const midPoint = pathNode.getPointAtLength(pathNode.getTotalLength() / 2);
+            el.attr("x", midPoint.x).attr("y", midPoint.y - 6);
         });
         gAirports.selectAll(".airport-dot").each(function () {
             const el = d3.select(this);
